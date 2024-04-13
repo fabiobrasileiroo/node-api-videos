@@ -43,11 +43,14 @@ server.put("/videos/:id", async (request, reply) => {
   return reply.status(204);
 });
 
-server.delete("/videos/:id", async(request, reply) => {
+server.delete("/videos/:id", async (request, reply) => {
   const videosId = request.params.id;
 
   await database.delete(videosId);
 
   return reply.status(204).send();
 });
-server.listen({ port: 3333 });
+server.listen({ 
+  host: '0.0.0.0',
+  port: process.env.PORT ?? 3333,
+});
