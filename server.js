@@ -1,3 +1,59 @@
+// import { fastify } from "fastify";
+// import { DatabasePostgres } from "./database-postgres.js";
+// // import { DataBaseMemory } from "./database-memory.js";
+
+// const server = fastify();
+
+// // const database = new DataBaseMemory();
+// const database = new DatabasePostgres();
+
+// // Request Body
+
+// server.post("/videos", async (request, reply) => {
+//   const { title, description, duration } = request.body;
+
+//   await database.create({
+//     //short sintaxe ex: title: title para a ser title to omitindo no nome
+//     title,
+//     description,
+//     duration,
+//   });
+//   // console.log(database.list());
+//   return reply.status(201).send();
+// });
+
+// server.get("/videos", async (request) => {
+//   const search = request.query.search;
+//   // console.log(search)
+//   const videos = await database.list(search);
+//   // return reply.send()
+//   return videos;
+// });
+
+// // router parameter
+// server.put("/videos/:id", async (request, reply) => {
+//   const videoId = request.params.id;
+//   const { title, description, duration } = request.body;
+
+//   await database.update(videoId, {
+//     title,
+//     description,
+//     duration,
+//   });
+//   return reply.status(204);
+// });
+
+// server.delete("/videos/:id", async (request, reply) => {
+//   const videosId = request.params.id;
+
+//   await database.delete(videosId);
+
+//   return reply.status(204).send();
+// });
+// server.listen({
+//   host: '0.0.0.0',
+//   port: process.env.PORT ?? 3333,
+// });
 import { fastify } from "fastify";
 import { DatabasePostgres } from "./database-postgres.js";
 // import { DataBaseMemory } from "./database-memory.js";
@@ -10,47 +66,93 @@ const database = new DatabasePostgres();
 // Request Body
 
 server.post("/videos", async (request, reply) => {
-  const { title, description, duration } = request.body;
+  const { title, description, duration, event_type, date_time, video_link } =
+    request.body;
 
   await database.create({
-    //short sintaxe ex: title: title para a ser title to omitindo no nome
     title,
     description,
     duration,
+    event_type,
+    date_time,
+    video_link,
   });
-  // console.log(database.list());
+
   return reply.status(201).send();
 });
 
 server.get("/videos", async (request) => {
   const search = request.query.search;
-  // console.log(search)
+
   const videos = await database.list(search);
-  // return reply.send()
+
   return videos;
 });
 
 // router parameter
 server.put("/videos/:id", async (request, reply) => {
   const videoId = request.params.id;
-  const { title, description, duration } = request.body;
+  const { title, description, duration, event_type, date_time, video_link } = request.body;
 
   await database.update(videoId, {
     title,
     description,
     duration,
+    event_type,
+    date_time,
+    video_link
   });
+
   return reply.status(204);
 });
+//  router parameter
+// server.put("/videos/:id", async (request, reply) => {
+//   const videoId = request.params.id;
+//   const { title, description, duration, event_type, date_time, video_link } =
+//     request.body;
+
+//   // Convert the date_time string to a JavaScript Date object
+//   const dateTimeObject = new Date(date_time);
+
+//   // Ensure the date_time is in the ISO format expected by PostgreSQL
+//   const formattedDateTime = dateTimeObject.toISOString();
+
+//   await database.update(videoId, {
+//     title,
+//     description,
+//     duration,
+//     event_type,
+//     date_time: formattedDateTime, // Pass the formatted date_time
+//     video_link,
+//   });
+//   return reply.status(204);
+// });
+
+// server.put("/videos/:id", async (request, reply) => {
+//   const videoId = request.params.id;
+//   const { title, description, duration, event_type, date_time, video_link } =
+//     request.body;
+
+//   await database.update(videoId, {
+//     title,
+//     description,
+//     duration,
+//     event_type,
+//     date_time,
+//     video_link,
+//   });
+//   return reply.status(204);
+// });
 
 server.delete("/videos/:id", async (request, reply) => {
-  const videosId = request.params.id;
+  const videoId = request.params.id;
 
-  await database.delete(videosId);
+  await database.delete(videoId);
 
   return reply.status(204).send();
 });
-server.listen({ 
-  host: '0.0.0.0',
+
+server.listen({
+  host: "0.0.0.0",
   port: process.env.PORT ?? 3333,
 });

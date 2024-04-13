@@ -1,27 +1,44 @@
 POST http://localhost:3333/videos
+# POST https://node-api-videos-uka2.onrender.com/videos
 Content-Type: application/json
 
 {
-  "title": "Video node",
+  "title": "Video fabio",
   "description": "Esse é o primeiro vídeo",
-  "duration": 180
+  "duration": 180,
+  "event_type": "online",
+  "date_time": "2024-04-14T10:00:00Z",
+  "video_link": "https://example.com/video"
 }
+
+# {
+#   "title": "Video fabio",
+#   "description": "Esse é o primeiro vídeo",
+#   "duration": 180
+# }
+
 
 ###
 
 GET http://localhost:3333/videos
+# GET https://node-api-videos-uka2.onrender.com/videos
 
 ###
 
-PUT http://localhost:3333/videos/ff910a5f-64f2-4cc5-9f5d-30b39e8a871d
+PUT http://localhost:3333/videos/2c0c586e-5294-4dee-ac40-53e328023499
+#PUT https://node-api-videos-uka2.onrender.com/videos
 Content-Type: application/json
 
 {
-  "title": "Video 03",
+  "title": "Video fabio 03",
   "description": "Esse é o primeiro vídeo",
-  "duration": 180
+  "duration": 180,
+  "event_type": "online",
+  "date_time": "2024-04-14T10:00:00Z",
+  "video_link": "https://example.com/video"
 }
 
 ###
 
-DELETE  http://localhost:3333/videos/ff910a5f-64f2-4cc5-9f5d-30b39e8a871d
+DELETE  http://localhost:3333/videos/2c0c586e-5294-4dee-ac40-53e328023499
+# DELETE https://node-api-videos-uka2.onrender.com/videos/77a273f0-9420-4aff-91e7-1a6e8da22cc4
