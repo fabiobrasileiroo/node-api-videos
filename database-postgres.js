@@ -68,7 +68,7 @@ export class DatabasePostgres {
       date_time,
       video_link,
     } = video;
-    await sql`update videos set title = ${title}, description = ${description}, duration = ${duration}, event_type = ${event_type},date_time ${date_time}, video_link = ${video_link} WHERE id = ${id}`;
+    await sql`update videos set title = ${title}, description = ${description}, duration = ${duration}, event_type = ${event_type},date_time = ${date_time}, video_link = ${video_link} WHERE id = ${id}`;
   }
   async delete(id) {
     await sql`delete from videos where id = ${id}`;

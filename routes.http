@@ -1,9 +1,9 @@
 POST http://localhost:3333/videos
-# POST https://node-api-videos-uka2.onrender.com/videos
+#  POST https://node-api-videos-uka2.onrender.com/videos
 Content-Type: application/json
 
 {
-  "title": "Video fabio",
+  "title": "Video fabio 1",
   "description": "Esse é o primeiro vídeo",
   "duration": 180,
   "event_type": "online",
@@ -25,8 +25,9 @@ GET https://node-api-videos-uka2.onrender.com/videos
 
 ###
 
-PUT http://localhost:3333/videos/2c0c586e-5294-4dee-ac40-53e328023499
-#PUT https://node-api-videos-uka2.onrender.com/videos
+#  PUT http://localhost:3333/videos/2c0c586e-5294-4dee-ac40-53e328023499
+
+PUT https://node-api-videos-uka2.onrender.com/videos/6cad1e91-a2ea-424e-9479-d41b1a69cc61
 Content-Type: application/json
 
 {
