@@ -56,10 +56,11 @@
 // });
 import { fastify } from "fastify";
 import { DatabasePostgres } from "./database-postgres.js";
+import cors from "@fastify/cors";
 // import { DataBaseMemory } from "./database-memory.js";
 
 const server = fastify();
-await fastify.register(cors, { 
+await server.register(cors, { 
   origin: 'http://127.0.0.1:5502/'
 })
 // const database = new DataBaseMemory();
