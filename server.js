@@ -61,7 +61,7 @@ import cors from "@fastify/cors";
 
 const server = fastify();
 await server.register(cors, { 
-  origin: 'http://127.0.0.1:5502/'
+  origin: 'http://127.0.0.1:5502'
 })
 // const database = new DataBaseMemory();
 const database = new DatabasePostgres();
