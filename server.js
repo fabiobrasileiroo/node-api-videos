@@ -59,7 +59,9 @@ import { DatabasePostgres } from "./database-postgres.js";
 // import { DataBaseMemory } from "./database-memory.js";
 
 const server = fastify();
-
+await fastify.register(cors, { 
+  origin: 'http://127.0.0.1:5502/'
+})
 // const database = new DataBaseMemory();
 const database = new DatabasePostgres();
 
