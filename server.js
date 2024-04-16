@@ -81,6 +81,13 @@ server.post("/videos", async (request, reply) => {
   return reply.status(201).send();
 });
 
+// server.get("/videos", async (request) => {
+//   const search = request.query.search;
+
+//   const videos = await database.list(search);
+
+//   return videos;
+// });
 server.get("/videos", async (request) => {
   const search = request.query.search;
 
@@ -88,6 +95,27 @@ server.get("/videos", async (request) => {
 
   return videos;
 });
+
+// Configure CORS for all routes
+server.register(fastify.cors, {
+  origin: (origin, callback) => {
+    // Replace '*' with the actual origin of your frontend application
+    // For development, you might use '*' as a wildcard origin,
+    // but for production, restrict it to specific origins for security.
+    if (origin === 'http://localhost:3000' || origin === 'https://your-frontend-domain.com') {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS')); // Reject unauthorized origins
+    }
+  },
+  credentials: true, // Allow cookies for authenticated requests (if applicable)
+});
+
+// server.listen(3000, (err) => {
+//   if (err) throw err;
+//   console.log(`Server listening on port ${server.server.address().port}`);
+// });
+
 
 // router parameter
 server.put("/videos/:id", async (request, reply) => {
@@ -105,44 +133,7 @@ server.put("/videos/:id", async (request, reply) => {
 
   return reply.status(204);
 });
-//  router parameter
-// server.put("/videos/:id", async (request, reply) => {
-//   const videoId = request.params.id;
-//   const { title, description, duration, event_type, date_time, video_link } =
-//     request.body;
 
-//   // Convert the date_time string to a JavaScript Date object
-//   const dateTimeObject = new Date(date_time);
-
-//   // Ensure the date_time is in the ISO format expected by PostgreSQL
-//   const formattedDateTime = dateTimeObject.toISOString();
-
-//   await database.update(videoId, {
-//     title,
-//     description,
-//     duration,
-//     event_type,
-//     date_time: formattedDateTime, // Pass the formatted date_time
-//     video_link,
-//   });
-//   return reply.status(204);
-// });
-
-// server.put("/videos/:id", async (request, reply) => {
-//   const videoId = request.params.id;
-//   const { title, description, duration, event_type, date_time, video_link } =
-//     request.body;
-
-//   await database.update(videoId, {
-//     title,
-//     description,
-//     duration,
-//     event_type,
-//     date_time,
-//     video_link,
-//   });
-//   return reply.status(204);
-// });
 
 server.delete("/videos/:id", async (request, reply) => {
   const videoId = request.params.id;

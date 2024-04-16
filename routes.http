@@ -31,9 +31,9 @@ PUT https://node-api-videos-uka2.onrender.com/videos/6cad1e91-a2ea-424e-9479-d41
 Content-Type: application/json
 
 {
-  "title": "Video fabio 03",
+  "title": "Video sabrina 04",
   "description": "Esse é o primeiro vídeo",
-  "duration": 180,
+  "duration": 100,
   "event_type": "online",
   "date_time": "2024-04-14T10:00:00Z",
   "video_link": "https://example.com/video"
