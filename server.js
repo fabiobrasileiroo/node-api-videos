@@ -55,6 +55,7 @@
 //   port: process.env.PORT ?? 3333,
 // });
 import { fastify } from "fastify";
+import cors from "@fastify/cors";
 import { DatabasePostgres } from "./database-postgres.js";
 // import { DataBaseMemory } from "./database-memory.js";
 
@@ -96,30 +97,19 @@ server.get("/videos", async (request) => {
   return videos;
 });
 
-server.addHook('preHandler', (req, res, done) => {
 
-  // example logic for conditionally adding headers
-  const allowedPaths = ["/some", "/list", "/of", "/paths"];
-  if (allowedPaths.includes(req.routerPath)) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "POST");
-    res.header("Access-Control-Allow-Headers",  "*");
+await server.register(cors, { 
+  origin: (origin, cb) => {
+  const hostname = new URL(origin).hostname
+  if(hostname === "localhost"){
+    //  Request from localhost will pass
+    cb(null, true)
+    return
   }
-
-  const isPreflight = /options/i.test(req.method);
-  if (isPreflight) {
-    return res.send();
-  }
-      
-  done();
+  // Generate an error on other origins, disabling access
+  cb(new Error("Not allowed"), false)
+}
 })
-
-
-// server.listen(3000, (err) => {
-//   if (err) throw err;
-//   console.log(`Server listening on port ${server.server.address().port}`);
-// });
-
 
 // router parameter
 server.put("/videos/:id", async (request, reply) => {
