@@ -55,7 +55,6 @@
 //   port: process.env.PORT ?? 3333,
 // });
 import { fastify } from "fastify";
-import cors from "@fastify/cors";
 import { DatabasePostgres } from "./database-postgres.js";
 // import { DataBaseMemory } from "./database-memory.js";
 
@@ -98,18 +97,7 @@ server.get("/videos", async (request) => {
 });
 
 
-await server.register(cors, { 
-  origin: (origin, cb) => {
-  const hostname = new URL(origin).hostname
-  if(hostname === "localhost"){
-    //  Request from localhost will pass
-    cb(null, true)
-    return
-  }
-  // Generate an error on other origins, disabling access
-  cb(new Error("Not allowed"), false)
-}
-})
+
 
 // router parameter
 server.put("/videos/:id", async (request, reply) => {
@@ -138,6 +126,5 @@ server.delete("/videos/:id", async (request, reply) => {
 });
 
 server.listen({
-  host: "0.0.0.0",
-  port: process.env.PORT ?? 3333,
+  port: 3333,
 });
