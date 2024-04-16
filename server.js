@@ -102,7 +102,7 @@ server.register(fastify.cors, {
     // Replace '*' with the actual origin of your frontend application
     // For development, you might use '*' as a wildcard origin,
     // but for production, restrict it to specific origins for security.
-    if (origin === 'http://localhost:3000' || origin === 'https://your-frontend-domain.com') {
+    if (origin === 'http://127.0.0.1:5502/' || origin === 'https://your-frontend-domain.com') {
       callback(null, true); // Allow the request
     } else {
       callback(new Error('Not allowed by CORS')); // Reject unauthorized origins
