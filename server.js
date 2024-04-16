@@ -96,20 +96,24 @@ server.get("/videos", async (request) => {
   return videos;
 });
 
-// Configure CORS for all routes
-server.register(fastify.cors, {
-  origin: (origin, callback) => {
-    // Replace '*' with the actual origin of your frontend application
-    // For development, you might use '*' as a wildcard origin,
-    // but for production, restrict it to specific origins for security.
-    if (origin === 'http://127.0.0.1:5502/' || origin === 'https://your-frontend-domain.com') {
-      callback(null, true); // Allow the request
-    } else {
-      callback(new Error('Not allowed by CORS')); // Reject unauthorized origins
-    }
-  },
-  credentials: true, // Allow cookies for authenticated requests (if applicable)
-});
+server.addHook('preHandler', (req, res, done) => {
+
+  // example logic for conditionally adding headers
+  const allowedPaths = ["/some", "/list", "/of", "/paths"];
+  if (allowedPaths.includes(req.routerPath)) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "POST");
+    res.header("Access-Control-Allow-Headers",  "*");
+  }
+
+  const isPreflight = /options/i.test(req.method);
+  if (isPreflight) {
+    return res.send();
+  }
+      
+  done();
+})
+
 
 // server.listen(3000, (err) => {
 //   if (err) throw err;
