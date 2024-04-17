@@ -56,12 +56,26 @@
 // });
 import { fastify } from "fastify";
 import { DatabasePostgres } from "./database-postgres.js";
-// import { DataBaseMemory } from "./database-memory.js";
+import cors from "@fastify/cors";
 
+// import { DataBaseMemory } from "./database-memory.js";
 const server = fastify();
 // const database = new DataBaseMemory();
 const database = new DatabasePostgres();
-
+await server.register(cors, { 
+  origin: '*'
+})
+// server.register(require("fastify-cors"), {
+//   origin: "*",
+//   allowedHeaders: [
+//     "Origin",
+//     "X-Requested-With",
+//     "Accept",
+//     "Content-Type",
+//     "Authorization"
+//   ],
+//   methods: ["GET", "PUT","PATCH", "POST","DELETE"],
+// })
 // Request Body
 
 server.post("/videos", async (request, reply) => {
@@ -123,8 +137,8 @@ server.delete("/videos/:id", async (request, reply) => {
 
   return reply.status(204).send();
 });
-
+// host: "0.0.0.0",
+  // port: process.env.PORT ??
 server.listen({
-  host: "0.0.0.0",
-  port: process.env.PORT ?? 3333,
+  port:3333,
 });
